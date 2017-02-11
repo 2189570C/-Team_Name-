@@ -17,11 +17,13 @@ def signup_image(request):
             
         
             if 'picture' in request.FILES:
+                #request.FILES['picture']
                 None
                 #API IMAGE RECOGNITION
 
 
             #auto fill form
+            return render(request, 'SLCapp/signup.html', {})# FILL THIS
 
         else:
             print(picture_form.errors)
@@ -29,8 +31,8 @@ def signup_image(request):
     else:
         picture_form = SignUpPictureForm()
     
-    return render(request, 'SLCapp/signupimage.html',
-                  {'picture_form':picture_form})
+        return render(request, 'SLCapp/signupimage.html',
+                      {'picture_form':picture_form})
 
 
 def signup(request):
@@ -39,6 +41,8 @@ def signup(request):
         # Set to False initially. Code changes value to
         # True when registration succeeds.
         registered = False
+        print request.method
+        print request.GET
         
         # If it's a HTTP POST, we're interested in processing form data.
         if request.method == 'POST':

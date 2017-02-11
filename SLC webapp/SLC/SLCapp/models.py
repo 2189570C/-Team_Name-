@@ -8,6 +8,7 @@ class UserProfile(models.Model):
     #gender = 
     DoB = models.DateField()
     NationalInsuranceNo = models.CharField(max_length=9)
+    PassportNo = models.IntegerField(max_length=9)
     
     def __str__(self):
         return self.user.username
