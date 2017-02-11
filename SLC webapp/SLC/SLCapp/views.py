@@ -3,12 +3,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
+from SLCapp.forms import UserForm
 
 
 def home(request):
     return render(request, 'SLCapp/home.html')
 
-def register(request):
+def signup(request):
         # A boolean value for telling the template
         # whether the registration was successful.
         # Set to False initially. Code changes value to

@@ -1,4 +1,4 @@
 from django.contrib import admin
-from rango.models import UserProfile
+##from SLCapp.models import UserProfile
 
 ##admin.site.register(UserProfile)
