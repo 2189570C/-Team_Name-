@@ -6,25 +6,20 @@
 {% endblock %}
 
 {% block body_block %}
-	{% if registered %}
-		<h1>Thank you for signing up!</h1>
-		<a href="{% url 'home' %}">Return to the homepage</a><br />
-	{% else %}
-		<h1>Sign up here!</h1>
-		<br />
-		<form id="picture_form" method="post" action="{% url 'signupimage' %}"
-			enctype="multipart/form-data">
+	<h1>Sign up here!</h1>
+	<br />
+	<form id="picture_form" method="post" action="{% url 'signupimage' %}"
+		enctype="multipart/form-data">
 
-				{% csrf_token %}
+		{% csrf_token %}
 
-				<!-- Display form -->
-				{{ picture_form.as_p }}
+		<!-- Display form -->
+		{{ picture_form.as_p }}
 
-				<div>
-					Click the submit button to upload your image!
-				</div>
-				<!-- Provide a button to click to submit the form. -->
-				<input type="submit" name="submit" value="Submit" />
-			</form>
-	{% endif %}
+		<div>
+			Click the submit button to upload your image!
+		</div>
+		<!-- Provide a button to click to submit the form. -->
+		<input type="submit" name="submit" value="Submit" />
+	</form>
 {% endblock %}
