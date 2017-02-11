@@ -21,9 +21,8 @@ def signup_image(request):
                 None
                 #API IMAGE RECOGNITION
 
-
+            data = {}# 
             #auto fill form
-            return render(request, 'SLCapp/signup.html', {})# FILL THIS
 
         else:
             print(picture_form.errors)
