@@ -30,7 +30,7 @@ def signup_image(request):
         sign_up_picture_form = SignUpPictureForm()
     
     return render(request, 'SLCapp/signupimage.html',
-                  {'sign_up_picture_form':sign_up_picture_form)
+                  {'sign_up_picture_form':sign_up_picture_form})
 
 
 def signup(request):
