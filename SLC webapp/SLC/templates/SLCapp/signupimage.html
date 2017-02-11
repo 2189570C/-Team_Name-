@@ -1,0 +1,16 @@
+{% extends 'SLCapp/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Sign Up
+{% endblock %}
+
+{% block body_block %}
+	{% if registered %}
+		<h1>Thank you for signing up!</h1>
+		<a href="{% url 'home' %}">Return to the homepage</a><br />
+	{% else %}
+		<h1>Sign up here!</h1>
+		<br />
+	{% endif %}
+{% endblock %}
