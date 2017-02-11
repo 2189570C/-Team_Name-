@@ -12,5 +12,19 @@
 	{% else %}
 		<h1>Sign up here!</h1>
 		<br />
+		<form id="picture_form" method="post" action="{% url 'signupimage' %}"
+			enctype="multipart/form-data">
+
+				{% csrf_token %}
+
+				<!-- Display form -->
+				{{ picture_form.as_p }}
+
+				<div>
+					Click the submit button to upload your image!
+				</div>
+				<!-- Provide a button to click to submit the form. -->
+				<input type="submit" name="submit" value="Submit" />
+			</form>
 	{% endif %}
 {% endblock %}
