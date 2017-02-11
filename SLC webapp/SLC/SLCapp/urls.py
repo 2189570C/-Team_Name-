@@ -7,6 +7,6 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^chat/$', views.chat, name='chat'),
-    url(r'^signup_image/$', views.signup_image, name='signupimage')
+    url(r'^signupimage/$', views.signup_image, name='signupimage')
     
 ]

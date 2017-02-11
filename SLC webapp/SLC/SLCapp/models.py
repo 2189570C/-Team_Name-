@@ -17,4 +17,4 @@ class UserProfile(models.Model):
 
 
 class SignUpPicture(models.Model):
-    picture = ImageField()
+    picture = models.ImageField()

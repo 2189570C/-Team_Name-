@@ -14,7 +14,7 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('DoB', 'NationalInsuranceNo')
 
-class SignUpPictureForm(forms.ModelForm)
+class SignUpPictureForm(forms.ModelForm):
     class Meta:
         model = SignUpPicture
-        fields = ('picture')
+        fields = ('picture',)

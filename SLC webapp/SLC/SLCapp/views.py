@@ -17,6 +17,7 @@ def signup_image(request):
             
         
             if 'picture' in request.FILES:
+                None
                 #API IMAGE RECOGNITION
 
 
@@ -28,7 +29,8 @@ def signup_image(request):
     else:
         sign_up_picture_form = SignUpPictureForm()
     
-    return render(request, 'SLCapp/signupimage.html')
+    return render(request, 'SLCapp/signupimage.html',
+                  {'sign_up_picture_form':sign_up_picture_form)
 
 
 def signup(request):
@@ -77,7 +79,8 @@ def signup(request):
                         'SLCapp/signup.html',
                         {'user_form': user_form,
                         'profile_form': profile_form,
-                        'registered': registered})
+                        'registered': registered,
+                        'autofilled':False})
 
 def user_login(request):
         # If the request is a HTTP POST, try to pull out the relevant information.
