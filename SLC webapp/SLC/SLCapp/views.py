@@ -12,8 +12,8 @@ def home(request):
 def signup_image(request):
     if request.method == 'POST':
 
-        sign_up_picture_form = SignUpPictureForm(data=request.POST)
-        if sign_up_picture_form.is_valid():
+        picture_form = SignUpPictureForm(data=request.POST)
+        if picture_form.is_valid():
             
         
             if 'picture' in request.FILES:
@@ -24,13 +24,13 @@ def signup_image(request):
             #auto fill form
 
         else:
-            print(sign_up_picture_form.errors)
+            print(picture_form.errors)
 
     else:
-        sign_up_picture_form = SignUpPictureForm()
+        picture_form = SignUpPictureForm()
     
     return render(request, 'SLCapp/signupimage.html',
-                  {'sign_up_picture_form':sign_up_picture_form})
+                  {'picture_form':picture_form})
 
 
 def signup(request):
