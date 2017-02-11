@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load static %}
 
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 		<title>
 			Student Loan Company -
 			{% block title_block  %}
