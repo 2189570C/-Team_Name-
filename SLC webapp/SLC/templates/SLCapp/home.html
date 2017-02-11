@@ -1,15 +1,20 @@
 <!DOCTYPE html>
+{% load staticfiles %}
+
 <html>
-	<title>
-		Home
-	</title>
+	<head>
+		<title>
+			Home
+		</title>
+	</head>
 	<body>
 		<div>	
 			<h1>Students Loan Company</h1>
 			<h2>Home page</h2>
 		</div>
 		<div>
-			Sample text
+			<img src="{% static "slclogo.png" %}"
+			alt="SLC logo"/>
 		</div>
 	</body>
 </html>
