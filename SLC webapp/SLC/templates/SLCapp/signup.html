@@ -1,23 +1,28 @@
-<!DOCTYPE html>
+{% extends 'SLCapp/base.html' %}
 {% load staticfiles %}
 
-<html>
-	<head>
-		<title>
-			Sign Up
-		</title>
-	</head>
-	<body>
-		<div>	
-			<h1>Student Loan Company</h1>
-			<h2>Sign Up</h2>
-		</div>
-		<div>
-			<img src="{% static "images/slclogo.png" %}"
-			alt="SLC logo"/>
-		</div>
-		<div>
-		
-		</div>
-	</body>
-</html>
+{% block title_block %}
+	Sign Up
+{% endblock %}
+
+{% block body_block %}
+	{% if registered %}
+		<h1>Thank you for signing up!</h1>
+		<a href="{% url 'home' %}">Return to the homepage</a><br />
+	{% else %}
+		<h1>Sign up here!</h1>
+		<br />
+		<form id="user_form" method="post" action="{% url 'signup' %}"
+		enctype="multipart/form-data">
+
+		{% csrf_token %}
+
+		<!-- Display each form -->
+		{{ user_form.as_p }}
+		{{ profile_form.as_p }}
+
+		<!-- Provide a button to click to submit the form. -->
+		<input type="submit" name="submit" value="Register" />
+	</form>
+	{% endif %}
+{% endblock %}

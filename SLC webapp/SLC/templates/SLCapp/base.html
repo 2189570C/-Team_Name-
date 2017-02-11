@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<title>
+			Student Loan Company -
+			{% block title_block  %}
+				Home
+			{% endblock %}
+		</title>
+	</head>
+	
+	<body>
+		<div>
+			{% block body_block %}
+			{% endblock %}
+		</div>
+			<img src="{% static "images/slclogo.png" %}"
+			alt="SLC logo"/>
+		</div>
+		<div>
+			<ul>
+				{% if user.is_authenticated %}
+					<li><a href="{% url 'chat' %}">Chat</a></li>
+					<li><a href="{% url 'logout' %}">Logout</a></li>
+				{% else %}
+					<li><a href="{% url 'login' %}">Login</a></li>
+					<li><a href="{% url 'signup' %}">Sign Up</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</body>
+</html>

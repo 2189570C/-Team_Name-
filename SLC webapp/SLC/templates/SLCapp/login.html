@@ -1,23 +1,24 @@
-<!DOCTYPE html>
+{% extends 'SLCapp/base.html' %}
 {% load staticfiles %}
 
-<html>
-	<head>
-		<title>
-			Login
-		</title>
-	</head>
-	<body>
-		<div>	
-			<h1>Student Loan Company</h1>
-			<h2>Login</h2>
-		</div>
-		<div>
-			<img src="{% static "images/slclogo.png" %}"
-			alt="SLC logo"/>
-		</div>
-		<div>
+{% block title_block %}
+	Login
+{% endblock %}
+
+{% block body_block %}
+	<h1>Login to Your Account</h1>
+	<form id="login_form" method="post" action="{% url 'login' %}">
+		{% if errors %}
+			{% for error in errors %}
+				{{ error }}
+			{% endfor %}
+		{% endif %}
 		
-		</div>
-	</body>
-</html>
+		{% csrf_token %}
+		Username: <input type="text" name="username" value="" size="50" />
+		<br />
+		Password: <input type="password" name="password" value="" size="50" />
+		<br />
+		<input type="submit" value="submit" />
+	</form>
+{% endblock %}
