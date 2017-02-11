@@ -97,3 +97,8 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
+
+
+@login_required
+def chat(request):
+    return render(request, 'SLCapp/chat.html')
