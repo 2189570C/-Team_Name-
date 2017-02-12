@@ -169,7 +169,9 @@ def chat(request):
             chatBotResponse.request = chat
             chatBotResponse.response = result
             chatBotResponse.save()
-            #ChatBotResponse.objects.create(request=chat,result=result) 
+            #ChatBotResponse.objects.create(request=chat,result=result)
+        else:
+            print(form.errors)
         
     else:
         current_messages = ChatBotResponse.objects.filter(user=request.user)

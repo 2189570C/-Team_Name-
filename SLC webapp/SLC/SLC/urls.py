@@ -20,5 +20,5 @@ from SLCapp import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^SLCapp/', include('SLCapp.urls')),
+    url(r'^', include('SLCapp.urls')),
 ]
