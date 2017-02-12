@@ -4,11 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from SLCapp.forms import UserForm, UserProfileForm, SignUpPictureForm, ChatBotResponseForm
-from SLCapp.models import ChatBotResponse
+from SLCapp.models import ChatBotResponse, ChatBotContext
 import json
 from watson_developer_cloud import ConversationV1
 
-# replace with your own workspace_id
+
 workspace_id = 'bb11e878-9e91-4e92-a27a-b871aa242360'
 
 conversation = ConversationV1(
@@ -155,14 +155,41 @@ def chat(request):
             chat = ''
             result = ''
             chat = request.POST.get('request')
-            
-            response = conversation.message(workspace_id=workspace_id, message_input={
-                'text': chat})
 
+            previous_message = ChatBotContext.objects.filter(user=request.user)
+            if previous_message:
+                previous_message = previous_message[0]
+                conversation_id = previous_message.conversation_id
+                dialog_node = previous_message.dialog_node
+                dialog_turn_counter = previous_message.dialog_turn_counter
+                dialog_request_counter = previous_message.dialog_request_counter
+               # defaultCounter = previous_message.defaultCounter
+                
+                context = {"conversation_id":conversation_id, "system": {"dialog_stack":[{"dialog_node":dialog_node}],  \
+                                                                         "dialog_turn_counter": dialog_turn_counter,  \
+                                                                         "dialog_request_counter": dialog_request_counter},
+}                           #"defaultCounter": defaultCounter }
+                                                                         
+                print context
+
+                previous_message.delete()
+                response = conversation.message(workspace_id=workspace_id, message_input={
+                            'text': chat}, context=context)
+                
+            else:
+                response = conversation.message(workspace_id=workspace_id, message_input={
+                    'text': chat}, context={})
             
             result = str(json.loads(json.dumps(response))['output']['text'][0])
-            print type(result)
-            print result
+            context = json.loads(json.dumps(response))['context']
+
+            conversation_id = str(context['conversation_id'])
+            dialog_node = str(context['system']['dialog_stack'][0]['dialog_node'])
+            dialog_turn_counter = int(context['system']['dialog_turn_counter'])
+            dialog_request_counter = int(context['system']['dialog_request_counter'])
+            #defaultCounter = int(context['defaultCounter'])
+                
+            ChatBotContext.objects.create(user=request.user, conversation_id=conversation_id, dialog_node=dialog_node, dialog_turn_counter=dialog_turn_counter, dialog_request_counter=dialog_request_counter)# defaultCounter=defaultCounter)
 
             chatBotResponse.user = request.user
             chatBotResponse.request = chat
@@ -172,6 +199,10 @@ def chat(request):
             print(form.errors)
         
     else:
+        existing_context = ChatBotContext.objects.filter(user=request.user)
+        if existing_context:
+            existing_context.delete()
+        
         current_messages = ChatBotResponse.objects.filter(user=request.user)
         if current_messages:
             current_messages.delete()

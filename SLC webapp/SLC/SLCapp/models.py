@@ -30,4 +30,20 @@ class ChatBotResponse(models.Model):
         return self.user.request
 
     def __unicode__(self):
-        return sel.user.request
+        return self.user.request
+
+
+class ChatBotContext(models.Model):
+    user = models.ForeignKey(User)
+    
+    conversation_id = models.TextField()
+    dialog_node = models.TextField()
+    dialog_turn_counter = models.IntegerField()
+    dialog_request_counter = models.IntegerField()
+    defaultCounter = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.user.context
+
+    def __unicode__(self):
+        return self.user.context
