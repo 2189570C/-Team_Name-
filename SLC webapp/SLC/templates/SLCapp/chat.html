@@ -9,4 +9,26 @@
 {% endblock %}
 {% block body_block %}
 	<p>Welcome to our SLC chatbot, here to help you with enquiries about your application!</p>
+	{% if convo %}
+		{% for c in convo %}
+			<p>You: {{ c.request }}</p>
+			<p>Watson: {{ c.response }}</p>
+		{% endfor %}
+	{% endif %}
+	<form id="chat_form" method="post" action="{% url 'chat' %}"
+		enctype="multipart/form-data">
+
+		{% csrf_token %}
+
+		<!-- Display form -->
+		{{ chat_form.request }}
+
+		<div>
+			
+		</div>
+		<!-- Provide a button to click to submit the form. -->
+		<input type="submit" name="submit" value="Send" />
+	</form>
+	
+	
 {% endblock %}

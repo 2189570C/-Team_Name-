@@ -3,9 +3,18 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
-from SLCapp.forms import UserForm, UserProfileForm, SignUpPictureForm
+from SLCapp.forms import UserForm, UserProfileForm, SignUpPictureForm, ChatBotResponseForm
+from SLCapp.models import ChatBotResponse
+import json
+from watson_developer_cloud import ConversationV1
 
+# replace with your own workspace_id
+workspace_id = 'bb11e878-9e91-4e92-a27a-b871aa242360'
 
+conversation = ConversationV1(
+                        username='cb3e9502-08ae-49c3-8314-eeafa128333e',
+                        password='ZPy4H2ylImMp',
+                        version='2016-09-20')
 def home(request):
     return render(request, 'SLCapp/home.html')
 
@@ -137,4 +146,43 @@ def user_logout(request):
 
 @login_required
 def chat(request):
-    return render(request, 'SLCapp/chat.html')
+    context_dict = {}
+    form = ChatBotResponseForm()
+
+    if request.method == 'POST':
+        form = ChatBotResponseForm(request.POST)
+        if form.is_valid():
+            chatBotResponse = form.save(commit=False)
+            chat = ''
+            result = ''
+            chat = request.POST.get('request')
+            
+            response = conversation.message(workspace_id=workspace_id, message_input={
+                'text': chat})
+
+            
+            result = str(json.loads(json.dumps(response))['output']['text'][0])
+            print type(result)
+            print result
+
+            chatBotResponse.user = request.user
+            chatBotResponse.request = chat
+            chatBotResponse.response = result
+            chatBotResponse.save()
+            #ChatBotResponse.objects.create(request=chat,result=result) 
+        
+    else:
+        current_messages = ChatBotResponse.objects.filter(user=request.user)
+        if current_messages:
+            current_messages.delete()
+        context_dict['convo'] = []
+        
+    
+    
+    convo = ChatBotResponse.objects.filter(user=request.user)
+    context_dict['convo'] = convo
+    context_dict['chat_form'] = form
+    
+    return render(request, 'SLCapp/chat.html', context_dict)
+
+

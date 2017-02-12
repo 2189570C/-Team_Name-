@@ -8,7 +8,7 @@ class UserProfile(models.Model):
     #gender = 
     DoB = models.DateField()
     NationalInsuranceNo = models.CharField(max_length=9)
-    PassportNo = models.IntegerField(max_length=9)
+    PassportNo = models.IntegerField()
     
     def __str__(self):
         return self.user.username
@@ -19,3 +19,15 @@ class UserProfile(models.Model):
 
 class SignUpPicture(models.Model):
     picture = models.ImageField()
+
+
+class ChatBotResponse(models.Model):
+    user = models.ForeignKey(User, blank=True)
+    request = models.TextField()
+    response = models.TextField(blank=True)
+    
+    def __str__(self):
+        return self.user.request
+
+    def __unicode__(self):
+        return sel.user.request
