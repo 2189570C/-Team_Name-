@@ -163,12 +163,11 @@ def chat(request):
                 dialog_node = previous_message.dialog_node
                 dialog_turn_counter = previous_message.dialog_turn_counter
                 dialog_request_counter = previous_message.dialog_request_counter
-               # defaultCounter = previous_message.defaultCounter
                 
                 context = {"conversation_id":conversation_id, "system": {"dialog_stack":[{"dialog_node":dialog_node}],  \
                                                                          "dialog_turn_counter": dialog_turn_counter,  \
                                                                          "dialog_request_counter": dialog_request_counter},
-}                           #"defaultCounter": defaultCounter }
+                } 
                                                                          
                 print context
 
@@ -187,7 +186,6 @@ def chat(request):
             dialog_node = str(context['system']['dialog_stack'][0]['dialog_node'])
             dialog_turn_counter = int(context['system']['dialog_turn_counter'])
             dialog_request_counter = int(context['system']['dialog_request_counter'])
-            #defaultCounter = int(context['defaultCounter'])
                 
             ChatBotContext.objects.create(user=request.user, conversation_id=conversation_id, dialog_node=dialog_node, dialog_turn_counter=dialog_turn_counter, dialog_request_counter=dialog_request_counter)# defaultCounter=defaultCounter)
 
