@@ -7,6 +7,9 @@ from SLCapp.forms import UserForm, UserProfileForm, SignUpPictureForm, ChatBotRe
 from SLCapp.models import ChatBotResponse, ChatBotContext
 import json
 from watson_developer_cloud import ConversationV1
+from parse_passport import parsePassport
+
+import datetime
 
 
 workspace_id = 'bb11e878-9e91-4e92-a27a-b871aa242360'
@@ -22,19 +25,31 @@ def signup_image(request):
     if request.method == 'POST':
 
         picture_form = SignUpPictureForm(data=request.POST)
-        if picture_form.is_valid():
+      #  if picture_form.is_valid():
             
         
-            if 'picture' in request.FILES:
-                #request.FILES['picture']
-                None
-                #API IMAGE RECOGNITION
+            #if 'picture' in request.FILES:
+                # request.FILES['picture']
+                # API IMAGE RECOGNITION
+                # stuff happens
+                # gets a string
+                #
+        result = 'P<GBRSCHNUR<<DANIEL<MARC<<<<<<<<<<<<<<<<<<<<' + '3046530706GBR7710104M1809223<<<<<<<<<<<<<<04'
+        forename, surname, passportNo, DoB, gender, exp = parsePassport(result)
+        print forename, surname, passportNo, DoB, gender, exp
+        if exp < datetime.date:
 
-            data = {}# 
-            #auto fill form
-
+            return render(request,
+                    'SLCapp/signup.html',
+                    {'user_form': UserForm(initial={'first_name':forename, 'last_name':surname}),
+                    'profile_form': UserProfileForm(initial={'DoB':DoB, 'PassportNo':int(passportNo)}),
+                    'registered': False})
         else:
-            print(picture_form.errors)
+            return render(request, 'SLCapp/signupimage.html',
+                          {'picture_form':SignUpPictureForm(), 'errors':'Passport read is expired, if this is not the case please sign up manually'})
+
+      #  else:
+         #   print(picture_form.errors)
 
     else:
         picture_form = SignUpPictureForm()
