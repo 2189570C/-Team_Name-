@@ -17,7 +17,7 @@
 	{% if convo %}
 		{% for c in convo %}
 			<p><strong>You:</strong> {{ c.request }}</p>
-			<p><strong>Watson:</strong> {{ c.response }}</p>
+			<p><strong>Advisor:</strong> {{ c.response }}</p>
 		{% endfor %}
 		<p><a href="{% url 'chat' %}">Clear chat history</a></p>
 	{% endif %}

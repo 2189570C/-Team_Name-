@@ -8,6 +8,7 @@ from SLCapp.models import ChatBotResponse, ChatBotContext
 import json
 from watson_developer_cloud import ConversationV1
 from parse_passport import parsePassport
+from passport_recognition import passportRecognition
 
 import datetime
 
@@ -25,24 +26,20 @@ def signup_image(request):
     if request.method == 'POST':
 
         picture_form = SignUpPictureForm(data=request.POST)
-      #  if picture_form.is_valid():
+        #if picture_form.is_valid():
             
-        
-            #if 'picture' in request.FILES:
-                # request.FILES['picture']
-                # API IMAGE RECOGNITION
-                # stuff happens
-                # gets a string
-                #
-        result = 'P<GBRSCHNUR<<DANIEL<MARC<<<<<<<<<<<<<<<<<<<<' + '3046530706GBR7710104M1809223<<<<<<<<<<<<<<04'
-        forename, surname, passportNo, DoB, gender, exp = parsePassport(result)
-        print forename, surname, passportNo, DoB, gender, exp
-        if exp < datetime.date:
+        if 'picture' in request.FILES:
+             #result = passportRecognition(request.FILES['picture'])              
+
+            result = 'P<GBRSCHNUR<<DANIEL<MARC<<<<<<<<<<<<<<<<<<<<' + '3046530706GBR7710104M1809223<<<<<<<<<<<<<<04'
+            forename, surname, passportNo, DoB, gender, exp = parsePassport(result)
+            print forename, surname, passportNo, DoB, gender, exp
+            #if exp < datetime.date:
 
             return render(request,
                     'SLCapp/signup.html',
                     {'user_form': UserForm(initial={'first_name':forename, 'last_name':surname}),
-                    'profile_form': UserProfileForm(initial={'DoB':DoB, 'PassportNo':int(passportNo)}),
+                    'profile_form': UserProfileForm(initial={'DoB':DoB, 'PassportNo':passportNo}),
                     'registered': False})
         else:
             return render(request, 'SLCapp/signupimage.html',
