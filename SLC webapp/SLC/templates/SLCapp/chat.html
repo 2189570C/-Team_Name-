@@ -7,10 +7,14 @@
 {% block title_block %}
 	Chat
 {% endblock %}
+
 {% block body_block %}
-	<p><h3>Welcome to our SLC chatbot, here to help you with enquiries about your application!</h3></p>
+	<p>
+		<h3>
+			Welcome to our SLC chatbot, Watson. He's here to help you with enquiries about your application!
+		</h3>
+	</p>
 	{% if convo %}
-		
 		{% for c in convo %}
 			<p><strong>You:</strong> {{ c.request }}</p>
 			<p><strong>Watson:</strong> {{ c.response }}</p>
@@ -31,6 +35,4 @@
 		<!-- Provide a button to click to submit the form. -->
 		<input type="submit" name="submit" value="Send" />
 	</form>
-	
-	
 {% endblock %}
