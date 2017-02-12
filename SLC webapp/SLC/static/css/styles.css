@@ -13,10 +13,20 @@ p {
 	margin:0 10px 10px
 }
 
+input {
+	box-sizing: border-box;
+	margin: 8px 0;
+	size: 100%;
+}
+
 a {
 	padding:5px; 
 	text-decoration:underline; 
 	color:blue;
+}
+
+a:active {
+  font-weight: bold;
 }
 
 div#header {
