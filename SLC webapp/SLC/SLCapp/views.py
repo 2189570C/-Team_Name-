@@ -147,7 +147,6 @@ def user_logout(request):
 @login_required
 def chat(request):
     context_dict = {}
-    form = ChatBotResponseForm()
 
     if request.method == 'POST':
         form = ChatBotResponseForm(request.POST)
@@ -169,7 +168,6 @@ def chat(request):
             chatBotResponse.request = chat
             chatBotResponse.response = result
             chatBotResponse.save()
-            #ChatBotResponse.objects.create(request=chat,result=result)
         else:
             print(form.errors)
         
@@ -183,7 +181,7 @@ def chat(request):
     
     convo = ChatBotResponse.objects.filter(user=request.user)
     context_dict['convo'] = convo
-    context_dict['chat_form'] = form
+    context_dict['chat_form'] = ChatBotResponseForm()
     
     return render(request, 'SLCapp/chat.html', context_dict)
 

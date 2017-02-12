@@ -5,15 +5,17 @@
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 {% block title_block %}
-	Chatbot
+	Chat
 {% endblock %}
 {% block body_block %}
-	<p>Welcome to our SLC chatbot, here to help you with enquiries about your application!</p>
+	<p><h3>Welcome to our SLC chatbot, here to help you with enquiries about your application!</h3></p>
 	{% if convo %}
+		
 		{% for c in convo %}
-			<p>You: {{ c.request }}</p>
-			<p>Watson: {{ c.response }}</p>
+			<p><strong>You:</strong> {{ c.request }}</p>
+			<p><strong>Watson:</strong> {{ c.response }}</p>
 		{% endfor %}
+		<p><a href="{% url 'chat' %}">Clear chat history</a></p>
 	{% endif %}
 	<form id="chat_form" method="post" action="{% url 'chat' %}"
 		enctype="multipart/form-data">
