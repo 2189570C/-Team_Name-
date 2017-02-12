@@ -11,6 +11,9 @@
 {% block body_block %}
 	<h1>Sign up here!</h1>
 	<br />
+	{% if errors %}
+		{{ errors }}
+	{% endif %}
 	<form id="picture_form" method="post" action="{% url 'signupimage' %}"
 		enctype="multipart/form-data">
 
